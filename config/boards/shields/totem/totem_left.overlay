@@ -6,9 +6,11 @@
 
  #include "totem.dtsi"
 
- &kscan0 {
-    compatible = "zmk,kscan-gpio-matrix";
-    wakeup-source;
+ / {
+   kscan0: kscan_0 {
+      compatible = "zmk,kscan-gpio-matrix";
+      diode-direction = "col2row";
+      wakeup-source;
 
     col-gpios
         = <&xiao_d 4 GPIO_ACTIVE_HIGH>
@@ -24,4 +26,5 @@
         , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         ;
+    };
  };
