@@ -1,0 +1,120 @@
+//
+//                                                        ▀▀▀▀▀     ▀▀▀▀▀          ▀▀█▀▀
+//                                                        ▄▀▀▀▄  ▄  ▄▀▀▀▄  ▄  ▄▀▀▀▄  █  ▄▀▀▀▄
+//                                                        █   █  █  █   █  █  █   █  █  █   █
+//                                                         ▀▀▀   █   ▀▀▀   █   ▀▀▀   ▀   ▀▀▀
+//                                                               █      ▄▄▄█▄▄▄    █   █  
+//                                                               ▀      █  █  █     █▄█
+//                                                             ▀▀▀▀▀    █  █  █      ▀
+//                                                                      ▀  ▀  ▀
+//
+// ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+       
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define BASE        0
+#define Nav         1
+#define NumSym      2
+#define Func        3
+#define Calc        4
+#define FS360       5
+
+&mt {
+    quick-tap-ms = <100>;
+    global-quick-tap;
+    flavor = "tap-preferred";
+    tapping-term-ms = <170>;
+};
+
+&lt {
+    tapping-term-ms = <240>;
+    flavor = "balanced";
+    quick-tap-ms = <150>;
+};
+
+&gresc {
+};
+
+/ {
+    behaviors {
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <125>;
+            global-quick-tap;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        BASE {
+            display-name = "BASE";
+            bindings = <
+&kp Y    &kp U        &kp I        &kp O       &kp P
+&kp H    &hm RSHFT J  &hm RCTRL K  &hm RALT L  &hm RGUI SEMICOLON
+&kp N    &kp M        &kp COMMA    &kp DOT     &kp SLASH           &lt 3 APOSTROPHE
+&kp RET  &lt 2 BSPC   &kp MINUS
+            >;
+        };
+
+        Nav {
+            display-name = "Nav";
+            bindings = <
+&kp RBRC         &trans  &kp HOME  &kp PAGE_UP    &trans
+&kp RBKT         &trans  &kp END   &kp PAGE_DOWN  &trans
+&kp RPAR         &trans  &trans    &trans         &trans  &trans
+&kp PRINTSCREEN  &trans  &trans
+            >;
+        };
+
+        NumSym {
+            display-name = "NumSym";
+            bindings = <
+&kp NUMBER_6  &kp NUMBER_7   &kp NUMBER_8  &kp NUMBER_9          &kp NUMBER_0
+&trans        &kp MINUS      &kp EQUAL     &kp LEFT_BRACKET      &kp RIGHT_BRACKET
+&kp CARET     &kp AMPERSAND  &kp ASTERISK  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp BACKSLASH
+&trans        &trans         &trans
+            >;
+        };
+
+        Func {
+            display-name = "Func";
+            bindings = <
+&kp F6      &kp F7           &kp F8             &kp F9         &kp F10
+&trans      &kp RIGHT_SHIFT  &kp RIGHT_CONTROL  &kp RIGHT_ALT  &kp RIGHT_GUI
+&sys_reset  &trans           &trans             &trans         &trans         &trans
+&trans      &trans           &trans
+            >;
+        };
+
+        Calc {
+            display-name = "Calc";
+            bindings = <
+&kp EQUAL  &kp N7  &kp N8      &kp N9  &kp KP_MINUS
+&trans     &kp N4  &kp N5      &kp N6  &kp KP_PLUS
+&trans     &kp N1  &kp N2      &kp N3  &kp KP_DIVIDE  &kp KP_MULTIPLY
+&kp ENTER  &kp N0  &kp KP_DOT
+            >;
+        };
+
+        FS360 {
+            display-name = "FS360";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &to 0
+            >;
+        };
+    };
+};
